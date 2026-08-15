@@ -56,6 +56,4 @@ Commits pushed to `main` are versioned by Release Please using conventional comm
 
 Configure the repository `NPM_TOKEN` secret with permission to publish `@pushingtheissue/typescript-primitives` before merging the first release pull request.
 
-Release Please requires a `RELEASE_PLEASE_TOKEN` repository secret because this repository's organization policy disables pull-request creation by `GITHUB_TOKEN`. Use a fine-grained token scoped to this repository with `Contents: Read and write`, `Pull requests: Read and write`, and `Actions: Read and write`.
-
 The initial non-conventional repository commits are not release candidates. The first release PR will be created after a conventional commit such as `feat: add a capability` or `fix: correct adapter behavior` reaches `main`.
