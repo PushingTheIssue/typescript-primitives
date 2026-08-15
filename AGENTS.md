@@ -47,3 +47,5 @@ npm run build
 ## Releases
 
 Use conventional commits so Release Please can determine version changes. The `main` workflow creates release pull requests and publishes the package after a release is merged. Do not edit release versions or tags manually.
+
+The release workflow uses the `RELEASE_PLEASE_TOKEN` secret because the organization disables pull-request creation by GitHub's default token. Configure it with contents, pull-request, and Actions write access.

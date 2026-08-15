@@ -1,8 +1,12 @@
 name: Publish Package
 
 on:
-  release:
-    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag_name:
+        description: Release tag to publish
+        required: true
+        type: string
 
 permissions:
   contents: read
@@ -15,7 +19,7 @@ jobs:
       - name: Check out release tag
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.release.tag_name }}
+          ref: ${{ inputs.tag_name }}
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -36,8 +40,7 @@ jobs:
 
       - name: Verify release tag
         run: |
-          test "${{ github.event.release.prerelease }}" = "false"
-          test "${{ github.event.release.tag_name }}" = "v$(node -p "require('./package.json').version")"
+          test "${{ inputs.tag_name }}" = "v$(node -p "require('./package.json').version")"
 
       - name: Publish package
         run: |
