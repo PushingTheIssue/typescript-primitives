@@ -55,3 +55,5 @@ Never commit populated `.env` files or credentials.
 Commits pushed to `main` are versioned by Release Please using conventional commit prefixes such as `feat:`, `fix:`, and `BREAKING CHANGE:`. Release Please opens a release pull request; merging it creates the GitHub release and tag, then the tag-triggered workflow verifies and publishes the package to npm.
 
 Configure the repository `NPM_TOKEN` secret with permission to publish `@pushingtheissue/typescript-primitives` before merging the first release pull request.
+
+The initial non-conventional repository commits are not release candidates. The first release PR will be created after a conventional commit such as `feat: add a capability` or `fix: correct adapter behavior` reaches `main`.
