@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.3](https://github.com/PushingTheIssue/typescript-primitives/compare/v0.1.2...v0.1.3) (2026-08-15)
+
+
+### Bug Fixes
+
+* add repo reference to the release job ([ead2673](https://github.com/PushingTheIssue/typescript-primitives/commit/ead2673c16aa41d2e880ef2ada221a200faf8c42))
+
 ## [0.1.2](https://github.com/PushingTheIssue/typescript-primitives/compare/v0.1.1...v0.1.2) (2026-08-15)
 
 
