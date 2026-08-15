@@ -1,6 +1,6 @@
 {
   "name": "@pushingtheissue/typescript-primitives",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": false,
   "type": "module",
   "main": "./dist/src/index.js",
