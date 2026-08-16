@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.7](https://github.com/PushingTheIssue/typescript-primitives/compare/v0.1.6...v0.1.7) (2026-08-16)
+
+
+### Bug Fixes
+
+* ensure that licensing is listed properly on the packages in npm ([cfa0b42](https://github.com/PushingTheIssue/typescript-primitives/commit/cfa0b4291643384526d6d3581579d16b1c2824b4))
+
 ## [0.1.6](https://github.com/PushingTheIssue/typescript-primitives/compare/v0.1.5...v0.1.6) (2026-08-16)
 
 
