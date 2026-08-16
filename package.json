@@ -17,6 +17,10 @@
   "publishConfig": {
     "access": "public"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/PushingTheIssue/typescript-primitives.git"
+  },
   "description": "Hexagonal architecture primitives for Pushing The Issue labs",
   "scripts": {
     "clean": "rimraf dist",
