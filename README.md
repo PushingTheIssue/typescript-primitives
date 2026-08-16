@@ -41,9 +41,3 @@ Adapter environment examples exist only where provider configuration is needed. 
 - `src/ports/ai/adapters/openrouter/.env.example`
 
 Never commit populated `.env` files or credentials.
-
-## Releases
-
-Conventional commits drive Release Please versioning. Release PRs create GitHub tags, then a workflow verifies and publishes the package to npm.
-
-Configure the repository `NPM_TOKEN` secret before the first release publication.
