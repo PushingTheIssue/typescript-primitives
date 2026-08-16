@@ -22,7 +22,7 @@ const database = await SqlDatabase.create({
 });
 ```
 
-Factories load the selected adapter. One `npm install` installs all supported adapter dependencies.
+Factories load the selected adapter. One `npm install` installs all supported adapter dependencies so it doesn't need to be repeatedly handled.
 
 ## Development
 
