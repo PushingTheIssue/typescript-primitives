@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.6](https://github.com/PushingTheIssue/typescript-primitives/compare/v0.1.5...v0.1.6) (2026-08-16)
+
+
+### Bug Fixes
+
+* clean up readme ([a805591](https://github.com/PushingTheIssue/typescript-primitives/commit/a805591638daf625ce17c073488bab6958bcde19))
+
 ## [0.1.5](https://github.com/PushingTheIssue/typescript-primitives/compare/v0.1.4...v0.1.5) (2026-08-16)
 
 
