@@ -12,4 +12,4 @@ status: stable
 
 # Requires
 
-The selected adapter's provider configuration and service name.
+The selected adapter's service name and provider options. The OpenTelemetry adapter can configure OTLP HTTP exporters directly with an endpoint and headers.

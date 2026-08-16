@@ -5,6 +5,8 @@ export type TelemetryLogLevel = 'trace' | 'debug' | 'info' | 'warn' | 'error' | 
 export interface TelemetryOptions {
   readonly adapter: 'otel';
   readonly serviceName: string;
+  readonly endpoint?: string;
+  readonly headers?: Readonly<Record<string, string>>;
 }
 
 export abstract class Telemetry {
@@ -13,7 +15,10 @@ export abstract class Telemetry {
   static async create(options: TelemetryOptions): Promise<Telemetry> {
     if (options.adapter === 'otel') {
       const { OtelTelemetry } = await import('./adapters/otel/index.js');
-      return new OtelTelemetry(options.serviceName);
+      return new OtelTelemetry(options.serviceName, undefined, undefined, undefined, {
+        ...(options.endpoint === undefined ? {} : { endpoint: options.endpoint }),
+        ...(options.headers === undefined ? {} : { headers: options.headers }),
+      });
     }
 
     throw new Error(`Unsupported telemetry adapter: ${(options as { adapter: string }).adapter}`);
@@ -37,4 +42,8 @@ export abstract class Telemetry {
     attributes?: TelemetryAttributes,
     error?: unknown,
   ): void;
+
+  shutdown(): Promise<void> {
+    return Promise.resolve();
+  }
 }

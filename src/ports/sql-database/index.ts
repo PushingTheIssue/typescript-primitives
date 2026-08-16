@@ -16,9 +16,9 @@ export interface D1BatchStatement {
 }
 
 export type SqlDatabaseOptions =
-  | { readonly adapter: 'sqlite'; readonly filename: string }
-  | { readonly adapter: 'postgres'; readonly connectionString?: string }
-  | { readonly adapter: 'd1'; readonly database: D1DatabaseBinding };
+   | { readonly adapter: 'sqlite'; readonly filename: string; readonly telemetry?: Telemetry }
+   | { readonly adapter: 'postgres'; readonly connectionString?: string; readonly telemetry?: Telemetry }
+   | { readonly adapter: 'd1'; readonly database: D1DatabaseBinding; readonly telemetry?: Telemetry };
 
 export abstract class SqlDatabase {
   constructor(public readonly adapter: string) {}
@@ -31,7 +31,7 @@ export abstract class SqlDatabase {
         import('better-sqlite3'),
         import('./adapters/sqlite/index.js'),
       ]);
-      return new SqliteDatabase(new Database(options.filename));
+      return new SqliteDatabase(new Database(options.filename), options.telemetry);
     }
 
     if (options.adapter === 'postgres') {
@@ -42,12 +42,12 @@ export abstract class SqlDatabase {
       const pool = options.connectionString
         ? new Pool({ connectionString: options.connectionString })
         : new Pool();
-      return new PostgresDatabase(pool);
+      return new PostgresDatabase(pool, options.telemetry);
     }
 
     if (options.adapter === 'd1') {
       const { D1Database } = await import('./adapters/d1/index.js');
-      return new D1Database(options.database);
+       return new D1Database(options.database, options.telemetry);
     }
 
     throw new Error(`Unsupported SQL adapter: ${(options as { adapter: string }).adapter}`);
@@ -56,3 +56,4 @@ export abstract class SqlDatabase {
   abstract query<T>(sql: string, parameters?: readonly SqlValue[]): Promise<readonly T[]>;
   abstract transaction<T>(work: (database: SqlDatabase) => Promise<T>): Promise<T>;
 }
+import type { Telemetry } from '../telemetry/index.js';

@@ -12,4 +12,4 @@ status: stable
 
 # Requires
 
-The selected adapter's provider credentials and construction options.
+The selected adapter's provider credentials and construction options. An optional `telemetry` implementation records completion spans, operation counts, and failures without recording message content.

@@ -1,4 +1,6 @@
 import { Notify, type Notification, type NotifyAction } from '../../index.js';
+import type { Telemetry } from '../../../telemetry/index.js';
+import { observe } from '../../../../internal/telemetry.js';
 
 type SlackButton = {
   readonly type: 'button';
@@ -17,40 +19,43 @@ export class SlackNotify extends Notify {
   constructor(
     private readonly webhookUrl: string,
     private readonly fetcher: typeof fetch = fetch,
+    private readonly telemetry?: Telemetry,
   ) {
     super('slack');
   }
 
   async notify(notification: Notification): Promise<void> {
-    if (notification.actions.length > 25) {
-      throw new Error('Slack notification cannot contain more than 25 actions');
-    }
+    return observe(this.telemetry, 'notify', this.adapter, 'notify', async () => {
+      if (notification.actions.length > 25) {
+        throw new Error('Slack notification cannot contain more than 25 actions');
+      }
 
-    const blocks: SlackBlock[] = [];
+      const blocks: SlackBlock[] = [];
 
-    if (notification.title !== undefined) {
+      if (notification.title !== undefined) {
       blocks.push({ type: 'header', text: { type: 'plain_text', text: notification.title } });
-    }
-    if (notification.body !== undefined) {
+      }
+      if (notification.body !== undefined) {
       blocks.push({ type: 'section', text: { type: 'mrkdwn', text: notification.body } });
-    }
-    if (notification.actions.length > 0) {
+      }
+      if (notification.actions.length > 0) {
       blocks.push({ type: 'actions', elements: notification.actions.map(toSlackButton) });
-    }
+      }
 
-    const response = await this.fetcher(this.webhookUrl, {
+      const response = await this.fetcher(this.webhookUrl, {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({
         text: notification.title ?? notification.body ?? 'Notification',
         blocks,
       }),
-    });
+      });
 
-    if (!response.ok) {
+      if (!response.ok) {
       const errorBody = (await response.text()).slice(0, 1000);
       throw new Error(`Slack notification failed with status ${response.status}: ${errorBody}`);
-    }
+      }
+    }, { actions: notification.actions.length });
   }
 }
 

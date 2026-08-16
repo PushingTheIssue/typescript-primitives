@@ -12,4 +12,4 @@ status: stable
 
 # Requires
 
-The selected adapter's construction options and provider endpoint. The Slack adapter requires an incoming webhook URL.
+The selected adapter's construction options and provider endpoint. An optional `telemetry` implementation records notification spans, counts, and failures without recording notification content. The Slack adapter requires an incoming webhook URL.

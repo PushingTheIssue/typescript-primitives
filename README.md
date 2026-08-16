@@ -40,5 +40,6 @@ Adapter environment examples exist only where provider configuration is needed. 
 - `src/ports/sql-database/adapters/postgres/.env.example`
 - `src/ports/blob-storage/adapters/s3/.env.example`
 - `src/ports/ai/adapters/openrouter/.env.example`
+- `src/ports/telemetry/adapters/otel/.env.example`
 
 Never commit populated `.env` files or credentials.

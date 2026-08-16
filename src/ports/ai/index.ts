@@ -1,4 +1,5 @@
 export type AiRole = 'system' | 'user' | 'assistant';
+import type { Telemetry } from '../telemetry/index.js';
 
 export interface AiMessage {
   readonly role: AiRole;
@@ -30,6 +31,7 @@ export type AiOptions = {
   readonly apiKey: string;
   readonly model: string;
   readonly baseUrl?: string;
+  readonly telemetry?: Telemetry;
 };
 
 export abstract class Ai {
@@ -38,7 +40,7 @@ export abstract class Ai {
   static async create(options: AiOptions): Promise<Ai> {
     if (options.adapter === 'openrouter') {
       const { OpenRouterAi } = await import('./adapters/openrouter/index.js');
-      return new OpenRouterAi(options.apiKey, options.model, options.baseUrl);
+      return new OpenRouterAi(options.apiKey, options.model, options.baseUrl, fetch, options.telemetry);
     }
 
     throw new Error(`Unsupported AI adapter: ${(options as { adapter: string }).adapter}`);

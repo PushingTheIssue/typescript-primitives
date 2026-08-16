@@ -1,4 +1,6 @@
 import { Ai, type AiCompletionRequest, type AiCompletionResponse, type AiUsage } from '../../index.js';
+import type { Telemetry } from '../../../telemetry/index.js';
+import { observe } from '../../../../internal/telemetry.js';
 
 interface OpenRouterResponse {
   readonly model?: string;
@@ -18,44 +20,50 @@ export class OpenRouterAi extends Ai {
     private readonly model: string,
     baseUrl = 'https://openrouter.ai/api/v1',
     private readonly fetcher: typeof fetch = fetch,
+    telemetry?: Telemetry,
   ) {
     super('openrouter');
+    this.telemetry = telemetry;
     this.baseUrl = baseUrl.replace(/\/$/, '');
   }
 
+  private readonly telemetry: Telemetry | undefined;
+
   async complete(request: AiCompletionRequest): Promise<AiCompletionResponse> {
-    const response = await this.fetcher(`${this.baseUrl}/chat/completions`, {
-      method: 'POST',
-      headers: {
-        authorization: `Bearer ${this.apiKey}`,
-        'content-type': 'application/json',
-      },
-      ...(request.signal === undefined ? {} : { signal: request.signal }),
-      body: JSON.stringify({
-        model: request.model ?? this.model,
-        messages: request.messages,
-        ...(request.temperature === undefined ? {} : { temperature: request.temperature }),
-        ...(request.maxTokens === undefined ? {} : { max_tokens: request.maxTokens }),
-      }),
-    });
+    return observe(this.telemetry, 'ai', this.adapter, 'complete', async () => {
+      const response = await this.fetcher(`${this.baseUrl}/chat/completions`, {
+        method: 'POST',
+        headers: {
+          authorization: `Bearer ${this.apiKey}`,
+          'content-type': 'application/json',
+        },
+        ...(request.signal === undefined ? {} : { signal: request.signal }),
+        body: JSON.stringify({
+          model: request.model ?? this.model,
+          messages: request.messages,
+          ...(request.temperature === undefined ? {} : { temperature: request.temperature }),
+          ...(request.maxTokens === undefined ? {} : { max_tokens: request.maxTokens }),
+        }),
+      });
 
-    if (!response.ok) {
-      const errorBody = (await response.text()).slice(0, 1000);
-      throw new Error(`OpenRouter request failed with status ${response.status}: ${errorBody}`);
-    }
+      if (!response.ok) {
+        const errorBody = (await response.text()).slice(0, 1000);
+        throw new Error(`OpenRouter request failed with status ${response.status}: ${errorBody}`);
+      }
 
-    const payload = await response.json() as OpenRouterResponse;
-    const content = payload.choices?.[0]?.message?.content;
-    if (typeof content !== 'string') {
-      throw new Error('OpenRouter response did not contain message content');
-    }
+      const payload = await response.json() as OpenRouterResponse;
+      const content = payload.choices?.[0]?.message?.content;
+      if (typeof content !== 'string') {
+        throw new Error('OpenRouter response did not contain message content');
+      }
 
-    const normalizedUsage = payload.usage ? toUsage(payload.usage) : undefined;
-    return {
-      content,
-      model: payload.model ?? request.model ?? this.model,
-      ...(normalizedUsage ? { usage: normalizedUsage } : {}),
-    };
+      const normalizedUsage = payload.usage ? toUsage(payload.usage) : undefined;
+      return {
+        content,
+        model: payload.model ?? request.model ?? this.model,
+        ...(normalizedUsage ? { usage: normalizedUsage } : {}),
+      };
+    }, { model: request.model ?? this.model });
   }
 }
 

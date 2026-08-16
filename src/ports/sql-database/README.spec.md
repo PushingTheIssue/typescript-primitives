@@ -12,4 +12,4 @@ status: stable
 
 # Requires
 
-The selected adapter's construction options and its provider dependency. Provider configuration belongs in that adapter's `.env.example` when environment variables are needed.
+The selected adapter's construction options and its provider dependency. An optional `telemetry` implementation records query, transaction, and batch spans, counts, and failures without recording SQL text or credentials. Provider configuration belongs in that adapter's `.env.example` when environment variables are needed.
