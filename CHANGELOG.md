@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.5](https://github.com/PushingTheIssue/typescript-primitives/compare/v0.1.4...v0.1.5) (2026-08-16)
+
+
+### Bug Fixes
+
+* add repo reference to the package.json ([c055fba](https://github.com/PushingTheIssue/typescript-primitives/commit/c055fba70755d99682bc20ae919910d50db1fc70))
+
 ## [0.1.4](https://github.com/PushingTheIssue/typescript-primitives/compare/v0.1.3...v0.1.4) (2026-08-16)
 
 
