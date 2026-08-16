@@ -22,6 +22,7 @@
     "url": "https://github.com/PushingTheIssue/typescript-primitives.git"
   },
   "description": "Hexagonal architecture primitives for Pushing The Issue labs",
+  "license": "MIT",
   "scripts": {
     "clean": "rimraf dist",
     "build": "npm run clean && tsc -p tsconfig.build.json",
