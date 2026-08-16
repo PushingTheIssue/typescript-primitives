@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.0](https://github.com/PushingTheIssue/typescript-primitives/compare/v0.1.7...v0.2.0) (2026-08-16)
+
+
+### Features
+
+* add a notify port and setup slack to be the first adapter ([59b62a4](https://github.com/PushingTheIssue/typescript-primitives/commit/59b62a499e4b91ddc84b28691cdb9e21953e1869))
+
 ## [0.1.7](https://github.com/PushingTheIssue/typescript-primitives/compare/v0.1.6...v0.1.7) (2026-08-16)
 
 
