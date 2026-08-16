@@ -6,3 +6,5 @@ export { Ai } from './ports/ai/index.js';
 export type { AiCompletionRequest, AiCompletionResponse, AiMessage, AiOptions, AiRole, AiUsage } from './ports/ai/index.js';
 export { Telemetry } from './ports/telemetry/index.js';
 export type { TelemetryAttribute, TelemetryAttributes, TelemetryLogLevel, TelemetryOptions } from './ports/telemetry/index.js';
+export { Notify } from './ports/notify/index.js';
+export type { Notification, NotifyAction, NotifyCallbackAction, NotifyLinkAction, NotifyOptions } from './ports/notify/index.js';

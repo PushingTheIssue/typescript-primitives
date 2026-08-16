@@ -8,6 +8,7 @@ Reusable hexagonal infrastructure capabilities for TypeScript projects. This pac
 - `src/ports/blob-storage`: Blob facade with S3 and in-memory adapters.
 - `src/ports/ai`: AI completion facade with an OpenRouter adapter.
 - `src/ports/telemetry`: Telemetry facade with an OpenTelemetry adapter.
+- `src/ports/notify`: Notification facade with a Slack incoming webhook adapter.
 
 Each capability has a `README.spec.md` beside its facade and each adapter. Those files describe the capability's behavior and requirements.
 
