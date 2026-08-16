@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.4](https://github.com/PushingTheIssue/typescript-primitives/compare/v0.1.3...v0.1.4) (2026-08-16)
+
+
+### Bug Fixes
+
+* add extra protections ([56b7629](https://github.com/PushingTheIssue/typescript-primitives/commit/56b7629a2996954cb22fe9e71797a31a96b45e85))
+* disable automatic dependabots, etc, for now ([48ff2aa](https://github.com/PushingTheIssue/typescript-primitives/commit/48ff2aa05862a05c10e42a180ab5095d4310d1df))
+
 ## [0.1.3](https://github.com/PushingTheIssue/typescript-primitives/compare/v0.1.2...v0.1.3) (2026-08-15)
 
 
