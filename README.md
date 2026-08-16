@@ -1,23 +1,15 @@
----
-type: Package
-title: TypeScript Primitives
-description: Reusable hexagonal infrastructure capabilities for TypeScript labs.
-tags: [typescript, hexagonal-architecture, infrastructure]
-status: stable
----
-
 # TypeScript Primitives
 
-Reusable infrastructure capabilities for labs in `pti_homepage`. This repository contains ports and adapters only; labs own domain models, application services, repositories, and migrations.
+Reusable hexagonal infrastructure capabilities for TypeScript projects. This package contains ports and adapters only; consuming projects own domain models, application services, repositories, and migrations.
 
 ## Capabilities
 
 - `src/ports/sql-database`: SQL facade with PostgreSQL, SQLite, and Cloudflare D1 adapters.
 - `src/ports/blob-storage`: Blob facade with S3 and in-memory adapters.
 - `src/ports/ai`: AI completion facade with an OpenRouter adapter.
-- `src/ports/telemetry`: telemetry facade with an OpenTelemetry adapter.
+- `src/ports/telemetry`: Telemetry facade with an OpenTelemetry adapter.
 
-Each capability has a concise OKF specification at `README.spec.md`. Read adapter specifications beside their implementations for behavior and requirements; they are not change logs.
+Each capability has a `README.spec.md` beside its facade and each adapter. Those files describe the capability's behavior and requirements.
 
 ## Usage
 
@@ -42,7 +34,7 @@ npm run lint
 npm run build
 ```
 
-Adapter environment examples exist only where labs need provider configuration. Factories receive the mapped values as options; they do not load `.env` files themselves:
+Adapter environment examples exist only where provider configuration is needed. Factories receive mapped values as options and do not load `.env` files themselves:
 
 - `src/ports/sql-database/adapters/postgres/.env.example`
 - `src/ports/blob-storage/adapters/s3/.env.example`
@@ -52,8 +44,6 @@ Never commit populated `.env` files or credentials.
 
 ## Releases
 
-Commits pushed to `main` are versioned by Release Please using conventional commit prefixes such as `feat:`, `fix:`, and `BREAKING CHANGE:`. Release Please opens a release pull request; merging it creates the GitHub release and tag, then dispatches a workflow that verifies and publishes the package to npm.
+Conventional commits drive Release Please versioning. Release PRs create GitHub tags, then a workflow verifies and publishes the package to npm.
 
-Configure the repository `NPM_TOKEN` secret with permission to publish `@pushingtheissue/typescript-primitives` before merging the first release pull request.
-
-The initial non-conventional repository commits are not release candidates. The first release PR will be created after a conventional commit such as `feat: add a capability` or `fix: correct adapter behavior` reaches `main`.
+Configure the repository `NPM_TOKEN` secret before the first release publication.
